@@ -27,7 +27,34 @@ app.get('/', function(req,res){
 	res.json({"success":true, "message": "ayylmao"});
 })
 
+app.post('/login', function(req,res){
+	//Set up a list of users that can login.
+	var users = [];
+	users.push({username: "test", password: "test"})
+	users.push({username: "ayyy", password: "lmao"})
 
+	//First lets see what's in the request being sent over
+	console.log(req.body);
+	//Get the user name and password from request.
+	var username = req.body.username;
+	var password = req.body.password;
+
+	//This is where you would put in database code to query
+	users.forEach(function(user){
+		//console.log("Checking user" + user.username);
+		if(user.username == username){
+			if(user.password == password){
+				console.log("Auth successful, send back a response");
+				res.json({success: true});
+			}
+			else{
+				console.log("Incorrect Password");
+				res.status(401).json("Incorrect Password");
+			}
+		}
+	
+	})
+})
 
 
 
